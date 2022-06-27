@@ -57,7 +57,7 @@ Application (with the embedded H2 database) is ready to be used ! You can access
 - Created custom Exceptions and tested them
 - Resolved dependency issue by adding dependencies like compiler, surfire etc.
 - Not able to complete Actutor settings for health check of the application or add other end points 
-- Caching on DB is not implementeddue to lack of experience in it but now I understand annotations like @EnableCaching etc.
+- Caching on DB is not implemented due to lack of experience in it but now I understand annotations like @EnableCaching etc.
 - Wanted to use yaml file instead of settings file for more redability
 - Application is running and have tested on swagger site
 - All the requests and responses are OK
