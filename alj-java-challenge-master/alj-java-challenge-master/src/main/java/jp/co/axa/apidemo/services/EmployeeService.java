@@ -4,15 +4,44 @@ import jp.co.axa.apidemo.entities.Employee;
 
 import java.util.List;
 
+/**
+ * Service interface for managing Employee entities.
+ */
 public interface EmployeeService {
 
-    public List<Employee> retrieveEmployees();
+    /**
+     * Retrieves all employees.
+     *
+     * @return A list of all employees.
+     */
+    List<Employee> retrieveEmployees();
 
-    public Employee getEmployee(Long employeeId);
+    /**
+     * Retrieves an employee by ID.
+     *
+     * @param employeeId The ID of the employee.
+     * @return The employee with the given ID.
+     */
+    Employee getEmployee(Long employeeId);
 
-    public void saveEmployee(Employee employee);
+    /**
+     * Saves a new employee.
+     *
+     * @param employee The employee to save.
+     */
+    Employee saveEmployee(Employee employee);
 
-    public void deleteEmployee(Long employeeId);
+    /**
+     * Deletes an employee by ID.
+     *
+     * @param employeeId The ID of the employee to delete.
+     */
+    void deleteEmployee(Long employeeId);
 
-    public void updateEmployee(Employee employee);
+    /**
+     * Updates an employee.
+     *
+     * @param employee The employee data to update.
+     */
+    Employee updateEmployee(Employee employee);
 }

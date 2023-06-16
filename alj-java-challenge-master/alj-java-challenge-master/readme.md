@@ -50,3 +50,27 @@ Please let us know more about your Java experience in a few sentences. For examp
 - I have 3 years experience in Java and I started to use Spring Boot from last year
 - I'm a beginner and just recently learned Spring Boot
 - I know Spring Boot very well and have been using it for many years
+
+#### UPDATES
+
+#### Code Enhancement
+
+- Added following functionalities
+   - Display all employees.
+   - Display an employee based on employee id.
+   - Addition of a new employee.
+   - Deletion of an existing employee.
+   - Updation of existing employee.
+   - Added plain HTML UI to perform all above functions.
+   - Added test cases to test all the services.
+   - Added spring security.
+   - Used caching mechanisms.
+- If had more time, I could've added client-side validation to validate the input fields.
+- Could've implemented Spring Security properly.
+- Could've added Exception Handling.
+- Could've used caching mechanisms to improve the performance of frequently accessed data.
+
+#### My experience in Java
+- I have around 7 years of Java experience and have worked with various Java frameworks, including Spring Boot, Spring MVC, Struts, 
+Playframework, and Seasar. Over the past year, I have been continuously working with Spring Boot, and I have previous experience with it in other projects as well. 
+I have expertise in Spring Boot and my overall Java experience make me a valuable asset for projects involving Java development and the utilization of Spring Boot.

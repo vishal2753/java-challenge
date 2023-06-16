@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entity representing an Employee.
+ */
 @Entity
 @Table(name="EMPLOYEE")
 public class Employee {
@@ -35,4 +38,13 @@ public class Employee {
     @Column(name="DEPARTMENT")
     private String department;
 
+    // Default constructor
+    public Employee() {
+    }
+    public Employee(Long id, String name, Integer salary, String department) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.department = department;
+    }
 }

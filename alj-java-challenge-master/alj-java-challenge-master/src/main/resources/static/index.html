@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #employees {
+            margin-top: 20px;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Employee Management</h1>
+
+<!-- Form to Create Employee -->
+<h2>Create Employee</h2>
+<form id="create-employee-form">
+    <label for="create-name">Name:</label>
+    <input type="text" id="create-name" required><br>
+    <label for="create-salary">Salary:</label>
+    <input type="number" id="create-salary" required><br>
+    <label for="create-department">Department:</label>
+    <input type="text" id="create-department" required><br>
+    <input type="submit" value="Create Employee">
+</form>
+
+<!-- Form to Update Employee -->
+<h2>Update Employee</h2>
+<form id="update-employee-form">
+    <label for="update-id">ID:</label>
+    <input type="number" id="update-id" required><br>
+    <label for="update-name">Name:</label>
+    <input type="text" id="update-name" required><br>
+    <label for="update-salary">Salary:</label>
+    <input type="number" id="update-salary" required><br>
+    <label for="update-department">Department:</label>
+    <input type="text" id="update-department" required><br>
+    <input type="submit" value="Update Employee">
+</form>
+
+<!-- Form to Delete Employee -->
+<h2>Delete Employee</h2>
+<form id="delete-employee-form">
+    <label for="delete-id">ID:</label>
+    <input type="number" id="delete-id" required><br>
+    <input type="submit" value="Delete Employee">
+</form>
+
+<!-- Display Employees -->
+<h2>Employees</h2>
+<div id="employees"></div>
+
+<script>
+        // AJAX to create employee
+        $("#create-employee-form").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/api/v1/employees',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    name: $("#create-name").val(),
+                    salary: $("#create-salary").val(),
+                    department: $("#create-department").val()
+                }),
+                success: function () {
+                    showAlert('success', 'Employee created successfully');
+                    retrieveEmployees();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showAlert('error', 'Failed to create employee: ' + jqXHR.responseText);
+                }
+            });
+        });
+
+        // AJAX to update employee
+        $("#update-employee-form").submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: '/api/v1/employees/' + $("#update-id").val(),
+                type: 'put',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    name: $("#update-name").val(),
+                    salary: $("#update-salary").val(),
+                    department: $("#update-department").val()
+                }),
+                success: function () {
+                    showAlert('success', 'Employee updated successfully');
+                    retrieveEmployees();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showAlert('error', 'Failed to update employee: ' + jqXHR.responseText);
+                }
+            });
+        });
+
+        // AJAX to delete employee
+        $("#delete-employee-form").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/api/v1/employees/' + $("#delete-id").val(),
+                type: 'delete',
+                success: function () {
+                    showAlert('success', 'Employee deleted successfully');
+                    retrieveEmployees();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showAlert('error', 'Failed to delete employee: ' + jqXHR.responseText);
+                }
+            });
+        });
+
+        // Function to retrieve all employees
+        function retrieveEmployees() {
+            $.ajax({
+                url: '/api/v1/employees',
+                type: 'get',
+                success: function (data) {
+                    var html = '<table>';
+                    html += '<tr><th>ID</th><th>Name</th><th>Salary</th><th>Department</th></tr>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<tr><td>' + data[i].id + '</td><td>' + data[i].name + '</td><td>' + data[i].salary + '</td><td>' + data[i].department + '</td></tr>';
+                    }
+                    html += '</table>';
+                    $('#employees').html(html);
+                }
+            });
+        }
+
+        // Function to show alert message
+        function showAlert(type, message) {
+            var alertClass = '';
+            if (type === 'success') {
+                alertClass = 'success-message';
+            } else if (type === 'error') {
+                alertClass = 'error-message';
+            }
+            var alertHtml = '<div class="' + alertClass + '">' + message + '</div>';
+            $('#employees').prepend(alertHtml);
+            setTimeout(function () {
+                $('.success-message, .error-message').fadeOut(500, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+
+        // Retrieve employees on page load
+        $(document).ready(function () {
+            retrieveEmployees();
+        });
+    </script>
+
+</body>
+
+</html>
