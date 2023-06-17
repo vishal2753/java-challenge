@@ -63,6 +63,8 @@ Please let us know more about your Java experience in a few sentences. For examp
    - Updation of existing employee.
    - Added plain HTML UI to perform all above functions.
    - Added test cases to test all the services.
+   - Added Loggers.
+   - Added comments.
    - Added spring security.
    - Used caching mechanisms.
 - If had more time, I could've added client-side validation to validate the input fields.
